@@ -18,7 +18,7 @@ import java.util.Scanner;
  *
  * @author Dell
  */
-public class ClienteTCP1 {
+public class ClienteTCP11 {
 
        Socket cliente;
     InputStream entrada;
@@ -26,7 +26,7 @@ public class ClienteTCP1 {
     DataInputStream datosentrada;
     DataOutputStream datossalida;
     Scanner scan;
-    public ClienteTCP1() {
+    public ClienteTCP11() {
    try {
             cliente = new Socket("127.0.0.1", 1025);
             entrada = cliente.getInputStream();
@@ -39,10 +39,9 @@ public class ClienteTCP1 {
             //leer desde el teclado lo que el usuario puso
             //enviar lo que se leyo
         
-                String msg = scan.nextLine();
-                datossalida.writeUTF(msg);
 
-               
+                // RECIBIR EL ENTERO LARGO
+                System.out.println("dato: " + datosentrada.readUTF());
                 cliente.close();
             }catch(UnknownHostException ex){
             ex.printStackTrace();
@@ -52,7 +51,7 @@ public class ClienteTCP1 {
     }
     
     public static void main(String args[]){
-       ClienteTCP1 c1 = new ClienteTCP1();
+       ClienteTCP11 c1 = new ClienteTCP11();
 
 
     }

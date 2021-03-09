@@ -31,6 +31,7 @@ public class servidorTCP2 {
             servidor = new ServerSocket(1025);
             while (true) {
                 cliente = servidor.accept();
+                System.out.println("El cliente: "+ cliente.getInetAddress().getHostAddress()+" en el puerto: "+ cliente.getPort());
                 entrada = cliente.getInputStream();
                 salida = cliente.getOutputStream();
 

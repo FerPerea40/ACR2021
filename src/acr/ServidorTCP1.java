@@ -5,6 +5,8 @@
  */
 package acr;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -17,29 +19,52 @@ import java.net.Socket;
  */
 public class ServidorTCP1 {
 
-    ServerSocket servidor;
+   ServerSocket servidor;
     Socket cliente;
-    OutputStream salida;
+    Socket cliente2;
+
     InputStream entrada;
+
+    OutputStream salida;
+    DataInputStream datosentrada;
+    DataOutputStream datossalida;
+    InputStream entrada2;
+
+    OutputStream salida2;
+    DataInputStream datosentrada2;
+    DataOutputStream datossalida2;
+String msj;
 
     public ServidorTCP1() {
         try {
-            servidor = new ServerSocket(1025);//puertos 1-65535 . 1-1024 reservados
-            cliente = servidor.accept();//aceptar y asignar un socket exclusivo para el cliente
-            //establecer flujos de entrada y salida
-            salida = cliente.getOutputStream();
-            entrada = cliente.getInputStream();
-            //mandar mensaje del cliente
-            salida.write(100);// este mensaje es para el cliente
-            //Recibir el mensaje cel cliente
-            byte mensaje[] = new byte[15];
-            int cb = entrada.read(mensaje);
-            System.out.println("Enteros: "+cb);   
-            String msg = new String(mensaje);
-            System.out.println(msg);
-             salida.write(mensaje);
-             // el mensaje del cliente se devuelva tal cual al mismo cliente
-cliente.close();
+               servidor = new ServerSocket(1025);
+       
+                cliente = servidor.accept();
+                System.out.println("El cliente: "+ cliente.getInetAddress().getHostAddress()+" en el puerto: "+ cliente.getPort());
+                entrada = cliente.getInputStream();
+                salida = cliente.getOutputStream();
+                datosentrada = new DataInputStream(entrada);
+                datossalida = new DataOutputStream(salida);
+                // RECIBE MENSAJE Y LO MUESTRA
+                
+                    String msg = datosentrada.readUTF();
+                    System.out.println("El cliente 1 dice> " + msg);
+                    msj = msg;
+                    cliente.close();
+                      cliente2 = servidor.accept();
+                           entrada2 = cliente2.getInputStream();
+                salida2 = cliente2.getOutputStream();
+                datosentrada2 = new DataInputStream(entrada2);
+                datossalida2 = new DataOutputStream(salida2);            
+                    
+                    datossalida2.writeUTF("Enviaste:"+msj);
+
+            
+                
+cliente2.close();
+            
+
+          
         } catch (IOException e) {
             e.printStackTrace();
         }
