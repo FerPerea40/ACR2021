@@ -35,13 +35,16 @@ public class ClienteNIO {
     public void lectura(){
         try{
     buffer=ByteBuffer.allocate(1024);
+    buffer.flip();
+    
     while(cliente.read(buffer) > -1){
+        buffer.flip();
         while(buffer.hasRemaining()){
          System.out.print((char)buffer.get());
         
         }
                  System.out.print("\n");
-buffer.clear();
+                buffer.clear();
         }
 
     

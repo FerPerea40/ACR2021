@@ -41,7 +41,7 @@ public class ServidorNIO {
     if(cliente == null){
     Thread.sleep(2000);
     }else{
-        System.out.println("Se conectó: "+cliente.socket().getLocalPort());
+        System.out.println("Se conectó: "+cliente.socket().getLocalPort()+" con ip"+cliente.getLocalAddress());
          buffer.rewind();
          cliente.write(buffer);
          cliente.close();
