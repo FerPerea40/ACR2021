@@ -20,6 +20,7 @@ public class ServidorNIO {
     SocketChannel cliente;
     ByteBuffer buffer;
     String saludo;
+    
     public ServidorNIO(int port, String saludo){
         try{
             this.saludo=saludo;
