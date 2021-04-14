@@ -60,6 +60,7 @@ public class ServidorArchivoNIO {
 
                     file = new RandomAccessFile("ArchivosNIO_Recibidos/" + ruta, "rw").getChannel();
                     buffer = ByteBuffer.allocate(1024);
+                    
                     while (cliente.read(buffer) > 0) {
                         buffer.flip();
                         file.write(buffer);
